@@ -1,4 +1,4 @@
-# VIGENERE-CIPHER
+
 ## EX. NO: 4
  
 
@@ -30,7 +30,67 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 
 ## PROGRAM
+```
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() {
+    char text[1024], key[1024], encrypted[1024], decrypted[1024];
+    int i, j = 0, k, base;
+
+    printf("Enter plaintext: ");
+    fgets(text, sizeof(text), stdin);
+    text[strcspn(text, "\n")] = '\0';
+
+    printf("Enter key (alphabetic only): ");
+    fgets(key, sizeof(key), stdin);
+    key[strcspn(key, "\n")] = '\0';
+
+    int n = strlen(text);
+    int m = strlen(key);
+
+    // Encryption
+    for (i = 0; i < n; i++) {
+        if (isalpha(text[i])) {
+            base = isupper(text[i]) ? 'A' : 'a';
+            k = tolower(key[j % m]) - 'a';
+            encrypted[i] = (text[i] - base + k) % 26 + base;
+            j++;
+        } else {
+            encrypted[i] = text[i];
+        }
+    }
+    encrypted[n] = '\0';
+
+    printf("Encrypted text: %s\n", encrypted);
+
+    // Decryption
+    j = 0;
+    for (i = 0; i < n; i++) {
+        if (isalpha(encrypted[i])) {
+            base = isupper(encrypted[i]) ? 'A' : 'a';
+            k = tolower(key[j % m]) - 'a';
+            decrypted[i] = (encrypted[i] - base - k + 26) % 26 + base;
+            j++;
+        } else {
+            decrypted[i] = encrypted[i];
+        }
+    }
+    decrypted[n] = '\0';
+
+    printf("Decrypted text: %s\n", decrypted);
+
+    return 0;
+}
+```
+
 
 ## OUTPUT
 
+<img width="1607" height="696" alt="image" src="https://github.com/user-attachments/assets/17c7d896-3b63-4554-90f5-a9aef3fee352" />
+
+
 ## RESULT
+we have implemented the Vigenere Cipher substitution technique using C program.
